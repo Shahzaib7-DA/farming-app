@@ -18,7 +18,7 @@ export function Layout({ children, title }: LayoutProps) {
                 <span className="text-primary-foreground font-bold text-sm">🌾</span>
               </div>
               <div>
-                <h1 className="font-bold text-foreground">AgriAssist</h1>
+                <h1 className="font-bold text-foreground">KrishiSakhi</h1>
                 {title && <p className="text-sm text-muted-foreground">{title}</p>}
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MessageCircle, User, FileText, Wifi } from 'lucide-react';
+import { MessageCircle, User, FileText } from 'lucide-react';
 import { Layout } from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,7 +21,7 @@ export default function Home() {
             </div>
             <div className="animate-fade-in">
               <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                {farmerProfile ? `Welcome back, ${farmerProfile.name}!` : 'Welcome to AgriAssist'}
+                {farmerProfile ? `Welcome back, ${farmerProfile.name}!` : 'Welcome to KrishiSakhi'}
               </h2>
               <p className="text-lg text-muted-foreground mt-3 max-w-md mx-auto">
                 {farmerProfile 
@@ -161,32 +161,65 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Features */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Wifi className="h-5 w-5 text-success" />
-              Offline Capability
+        {/* Market Prices */}
+        <Card className="relative overflow-hidden border-success/20 bg-gradient-to-br from-card to-success/5">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-success/10 rounded-full -translate-y-16 translate-x-16"></div>
+          <CardHeader className="relative">
+            <CardTitle className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center">
+                <span className="text-success font-bold text-lg">₹</span>
+              </div>
+              Latest Market Prices
             </CardTitle>
+            <CardDescription>
+              Current market rates for major crops in your region
+            </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-start gap-3">
-              <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></div>
-              <p className="text-sm text-muted-foreground">
-                Works completely offline with local database
-              </p>
+          <CardContent className="relative space-y-4">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search crops..."
+                className="w-full px-4 py-2 border border-border rounded-lg bg-background/50 focus:outline-none focus:ring-2 focus:ring-success/50 focus:border-success"
+                onChange={(e) => {
+                  const searchTerm = e.target.value.toLowerCase();
+                  const items = document.querySelectorAll('.crop-item') as NodeListOf<HTMLElement>;
+                  items.forEach(item => {
+                    const cropName = item.querySelector('.crop-name')?.textContent?.toLowerCase();
+                    if (cropName?.includes(searchTerm)) {
+                      item.style.display = 'flex';
+                    } else {
+                      item.style.display = 'none';
+                    }
+                  });
+                }}
+              />
             </div>
-            <div className="flex items-start gap-3">
-              <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></div>
-              <p className="text-sm text-muted-foreground">
-                Enhanced responses when online
-              </p>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></div>
-              <p className="text-sm text-muted-foreground">
-                Automatic sync when connection is restored
-              </p>
+            <div className="space-y-3 max-h-64 overflow-y-auto">
+              {[
+                { name: 'Rice (Paddy)', price: '2,850', unit: 'per quintal', trend: 'up' },
+                { name: 'Wheat', price: '2,100', unit: 'per quintal', trend: 'down' },
+                { name: 'Sugarcane', price: '350', unit: 'per quintal', trend: 'up' },
+                { name: 'Cotton', price: '6,200', unit: 'per quintal', trend: 'up' },
+                { name: 'Turmeric', price: '8,500', unit: 'per quintal', trend: 'down' },
+                { name: 'Onion', price: '1,200', unit: 'per quintal', trend: 'up' },
+                { name: 'Tomato', price: '2,800', unit: 'per quintal', trend: 'down' },
+                { name: 'Potato', price: '1,800', unit: 'per quintal', trend: 'up' }
+              ].map((crop, index) => (
+                <div key={index} className="crop-item flex items-center justify-between p-3 bg-background/50 rounded-lg border border-border/50 hover:bg-background/80 transition-colors">
+                  <div>
+                    <div className="crop-name font-medium text-foreground">{crop.name}</div>
+                    <div className="text-sm text-muted-foreground">{crop.unit}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold text-foreground">₹{crop.price}</div>
+                    <div className={`text-xs flex items-center gap-1 ${crop.trend === 'up' ? 'text-success' : 'text-destructive'}`}>
+                      <span>{crop.trend === 'up' ? '↗' : '↘'}</span>
+                      {crop.trend === 'up' ? '+2.5%' : '-1.8%'}
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
