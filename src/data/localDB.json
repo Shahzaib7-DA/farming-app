@@ -1,0 +1,24 @@
+{
+  "faqs": [
+    {
+      "keywords": ["yellow", "leaves", "paddy"],
+      "response": "Yellow leaves in paddy often indicate nitrogen deficiency. Apply urea fertilizer (50-60 kg per acre) and ensure proper water management."
+    },
+    {
+      "keywords": ["pest", "attack", "insect"],
+      "response": "For pest control, use neem oil spray or contact your local agricultural officer for specific pesticide recommendations."
+    },
+    {
+      "keywords": ["water", "irrigation", "drought"],
+      "response": "Maintain 2-3 cm standing water in paddy fields. During water scarcity, use alternate wetting and drying method."
+    },
+    {
+      "keywords": ["fertilizer", "nutrients"],
+      "response": "For balanced nutrition, use NPK fertilizer in 3 splits: 25% at transplanting, 50% at tillering, 25% at flowering stage."
+    },
+    {
+      "keywords": ["disease", "fungal", "blight"],
+      "response": "Apply fungicide spray and ensure proper field drainage. Remove infected plants immediately to prevent spread."
+    }
+  ]
+}
