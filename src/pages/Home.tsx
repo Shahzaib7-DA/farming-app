@@ -21,26 +21,58 @@ export default function Home() {
               <CarouselItem>
                 <div className="relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-success/15 rounded-3xl"></div>
-                  <div className="relative text-center space-y-6 py-16 px-6">
-                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-xl">
-                      <span className="text-4xl animate-pulse">🌾</span>
+                  
+                  {/* Floating Creative Elements */}
+                  <div className="absolute top-8 left-8 w-16 h-16 bg-gradient-to-br from-accent/30 to-primary/30 rounded-full animate-pulse opacity-60"></div>
+                  <div className="absolute top-16 right-12 w-8 h-8 bg-gradient-to-br from-success/40 to-accent/40 rounded-full animate-bounce opacity-70"></div>
+                  <div className="absolute bottom-12 left-16 w-12 h-12 bg-gradient-to-br from-primary/30 to-success/30 rounded-full animate-pulse opacity-50"></div>
+                  <div className="absolute bottom-8 right-8 w-6 h-6 bg-gradient-to-br from-accent/50 to-primary/50 rounded-full animate-bounce opacity-80"></div>
+                  
+                  {/* Floating Icons */}
+                  <div className="absolute top-20 right-20 text-2xl animate-bounce opacity-30">🌱</div>
+                  <div className="absolute bottom-20 left-20 text-xl animate-pulse opacity-40">🚜</div>
+                  <div className="absolute top-32 left-32 text-lg animate-bounce opacity-35">☀️</div>
+                  
+                  <div className="relative text-center space-y-6 py-16 px-6 backdrop-blur-[1px]">
+                    {/* Enhanced Central Icon with Ripple Effect */}
+                    <div className="relative mx-auto w-28 h-28">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full animate-ping opacity-20"></div>
+                      <div className="absolute inset-2 bg-gradient-to-br from-accent to-success rounded-full animate-pulse opacity-30"></div>
+                      <div className="relative w-24 h-24 mx-auto bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-xl shadow-primary/20 animate-bounce-gentle border-2 border-white/20">
+                        <span className="text-4xl animate-pulse filter drop-shadow-lg">🌾</span>
+                      </div>
                     </div>
-                    <div className="animate-fade-in space-y-4">
-                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
+                    
+                    <div className="animate-fade-in space-y-4 relative">
+                      {/* Decorative Lines */}
+                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
+                      
+                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%] relative">
                         {farmerProfile ? `Welcome back, ${farmerProfile.name}!` : 'Welcome to KrishiSakhi'}
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-primary via-accent to-success rounded-full opacity-30"></div>
                       </h2>
-                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                      
+                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed relative bg-white/5 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/10">
                         {farmerProfile 
                           ? `Your intelligent farming companion for ${farmerProfile.crop} cultivation in ${farmerProfile.district}` 
                           : 'Your intelligent agricultural assistant - empowering farmers with smart solutions'
                         }
                       </p>
+                      
                       {farmerProfile && (
-                        <div className="animate-scale-in flex items-center justify-center gap-2 bg-success/10 text-success px-6 py-3 rounded-full text-base font-medium border border-success/20 max-w-fit mx-auto">
-                          <div className="w-3 h-3 bg-success rounded-full animate-pulse"></div>
-                          Profile Active - Ready to Assist
+                        <div className="animate-scale-in">
+                          <div className="relative inline-flex items-center justify-center gap-2 bg-success/15 text-success px-6 py-3 rounded-full text-base font-medium border border-success/30 backdrop-blur-sm shadow-lg shadow-success/10">
+                            <div className="absolute inset-0 bg-gradient-to-r from-success/10 to-success/5 rounded-full"></div>
+                            <div className="relative flex items-center gap-2">
+                              <div className="w-3 h-3 bg-success rounded-full animate-pulse shadow-sm shadow-success/50"></div>
+                              <span className="bg-gradient-to-r from-success to-success/80 bg-clip-text text-transparent font-semibold">Profile Active - Ready to Assist</span>
+                            </div>
+                          </div>
                         </div>
                       )}
+                      
+                      {/* Decorative Bottom Line */}
+                      <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-0.5 bg-gradient-to-r from-transparent via-success to-transparent opacity-40"></div>
                     </div>
                   </div>
                 </div>
