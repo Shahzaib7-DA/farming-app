@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 import { Navigation } from './Navigation';
 import { StatusIndicator } from './StatusIndicator';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface LayoutProps {
   children: ReactNode;
@@ -8,6 +10,8 @@ interface LayoutProps {
 }
 
 export function Layout({ children, title }: LayoutProps) {
+  const { t } = useLanguage();
+  
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="border-b border-border bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-card/50">
@@ -18,11 +22,14 @@ export function Layout({ children, title }: LayoutProps) {
                 <span className="text-primary-foreground font-bold text-sm">🌾</span>
               </div>
               <div>
-                <h1 className="font-bold text-foreground">KrishiSakhi</h1>
+                <h1 className="font-bold text-foreground">{t('appTitle')}</h1>
                 {title && <p className="text-sm text-muted-foreground">{title}</p>}
               </div>
             </div>
-            <StatusIndicator />
+            <div className="flex items-center gap-2">
+              <LanguageSwitcher />
+              <StatusIndicator />
+            </div>
           </div>
         </div>
       </header>

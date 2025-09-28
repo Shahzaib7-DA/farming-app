@@ -5,13 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useLanguage } from '@/hooks/useLanguage';
 import { FarmerProfile } from '@/types/farmer';
 
 export default function Home() {
   const [farmerProfile] = useLocalStorage<FarmerProfile | null>('farmerProfile', null);
+  const { t } = useLanguage();
 
   return (
-    <Layout title="Agricultural Assistant">
+    <Layout title={t('appTitle')}>
       <div className="space-y-8">
         {/* Enhanced Welcome Slideshow */}
         <div className="relative overflow-hidden rounded-3xl">
@@ -48,14 +50,14 @@ export default function Home() {
                       <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
                       
                       <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%] relative">
-                        {farmerProfile ? `Welcome back, ${farmerProfile.name}!` : 'Welcome to KrishiSakhi'}
+                        {farmerProfile ? `${t('welcomeBack')}, ${farmerProfile.name}!` : t('welcomeTo')}
                         <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-primary via-accent to-success rounded-full opacity-30"></div>
                       </h2>
                       
                       <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed relative bg-white/5 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/10">
                         {farmerProfile 
-                          ? `Your intelligent farming companion for ${farmerProfile.crop} cultivation in ${farmerProfile.district}` 
-                          : 'Your intelligent agricultural assistant - empowering farmers with smart solutions'
+                          ? t('farmingCompanion', { crop: farmerProfile.crop, district: farmerProfile.district })
+                          : t('intelligentAssistant')
                         }
                       </p>
                       
@@ -65,7 +67,7 @@ export default function Home() {
                             <div className="absolute inset-0 bg-gradient-to-r from-success/10 to-success/5 rounded-full"></div>
                             <div className="relative flex items-center gap-2">
                               <div className="w-3 h-3 bg-success rounded-full animate-pulse shadow-sm shadow-success/50"></div>
-                              <span className="bg-gradient-to-r from-success to-success/80 bg-clip-text text-transparent font-semibold">Profile Active - Ready to Assist</span>
+                              <span className="bg-gradient-to-r from-success to-success/80 bg-clip-text text-transparent font-semibold">{t('profileActive')}</span>
                             </div>
                           </div>
                         </div>
@@ -88,15 +90,15 @@ export default function Home() {
                     </div>
                     <div className="animate-fade-in space-y-4">
                       <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                        Ask Agricultural Queries
+                        {t('askQueries')}
                       </h2>
                       <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        Get instant expert advice on crop diseases, pest control, soil health, and farming techniques. Our AI is trained on agricultural best practices.
+                        {t('queryDescription')}
                       </p>
                       <Button asChild className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-white shadow-lg hover:shadow-accent/25 transition-all duration-300 hover:scale-105 px-8 py-3 text-lg">
                         <Link to="/query" className="flex items-center gap-3">
                           <MessageCircle className="h-5 w-5" />
-                          Start Asking Questions
+                          {t('startAsking')}
                         </Link>
                       </Button>
                     </div>
@@ -114,15 +116,15 @@ export default function Home() {
                     </div>
                     <div className="animate-fade-in space-y-4">
                       <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-success via-primary to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                        Track Farm Activities
+                        {t('trackActivities')}
                       </h2>
                       <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        Log your daily farming activities, track progress, and get personalized recommendations based on your farming patterns and practices.
+                        {t('activitiesDescription')}
                       </p>
                       <Button asChild className="bg-gradient-to-r from-success to-primary hover:from-success/90 hover:to-primary/90 text-white shadow-lg hover:shadow-success/25 transition-all duration-300 hover:scale-105 px-8 py-3 text-lg">
                         <Link to="/activities" className="flex items-center gap-3">
                           <FileText className="h-5 w-5" />
-                          Manage Activities
+                          {t('manageActivities')}
                         </Link>
                       </Button>
                     </div>
@@ -143,19 +145,19 @@ export default function Home() {
                     </div>
                     <div className="animate-fade-in space-y-4">
                       <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-warning via-primary to-warning bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                        Market Prices & Schemes
+                        {t('marketSchemes')}
                       </h2>
                       <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        Stay updated with latest market prices for your crops and discover government schemes that can benefit your farming operations.
+                        {t('marketDescription')}
                       </p>
                       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         <Button className="bg-gradient-to-r from-warning to-primary hover:from-warning/90 hover:to-primary/90 text-white shadow-lg hover:shadow-warning/25 transition-all duration-300 hover:scale-105 px-6 py-3">
                           <TrendingUp className="h-5 w-5 mr-2" />
-                          View Market Prices
+                          {t('viewPrices')}
                         </Button>
                         <Button variant="outline" className="border-warning/30 hover:bg-warning hover:text-warning-foreground transition-all duration-300 px-6 py-3">
                           <Volume2 className="h-5 w-5 mr-2" />
-                          Latest Schemes
+                          {t('latestSchemes')}
                         </Button>
                       </div>
                     </div>
@@ -182,7 +184,7 @@ export default function Home() {
                   <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center">
                     <User className="h-5 w-5 text-success" />
                   </div>
-                  Your Farm Profile
+                  {t('yourProfile')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="relative space-y-3">
@@ -190,21 +192,21 @@ export default function Home() {
                   <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg border border-border/50">
                     <span className="text-muted-foreground flex items-center gap-2">
                       <span className="w-2 h-2 bg-primary rounded-full"></span>
-                      Name
+                      {t('name')}
                     </span>
                     <span className="font-semibold">{farmerProfile.name}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg border border-border/50">
                     <span className="text-muted-foreground flex items-center gap-2">
                       <span className="w-2 h-2 bg-accent rounded-full"></span>
-                      District
+                      {t('district')}
                     </span>
                     <span className="font-semibold">{farmerProfile.district}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-background/50 rounded-lg border border-border/50">
                     <span className="text-muted-foreground flex items-center gap-2">
                       <span className="w-2 h-2 bg-success rounded-full"></span>
-                      Primary Crop
+                      {t('primaryCrop')}
                     </span>
                     <span className="font-semibold">{farmerProfile.crop}</span>
                   </div>
@@ -221,17 +223,17 @@ export default function Home() {
                   <div className="w-10 h-10 bg-warning/20 rounded-full flex items-center justify-center animate-pulse">
                     <User className="h-5 w-5 text-warning" />
                   </div>
-                  Setup Required
+                  {t('setupRequired')}
                 </CardTitle>
                 <CardDescription className="text-base">
-                  Complete your farmer profile to unlock personalized agricultural assistance
+                  {t('setupDescription')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="relative">
                 <Button asChild className="w-full bg-gradient-to-r from-warning to-warning/80 hover:from-warning/90 hover:to-warning/70 text-warning-foreground shadow-lg hover:shadow-warning/25 transition-all duration-300 hover:scale-[1.02]">
                   <Link to="/profile" className="flex items-center justify-center gap-2">
                     <User className="h-4 w-4" />
-                    Setup Profile Now
+                    {t('setupNow')}
                   </Link>
                 </Button>
               </CardContent>
@@ -302,17 +304,17 @@ export default function Home() {
               <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center">
                 <span className="text-success font-bold text-lg">₹</span>
               </div>
-              Latest Market Prices
+              {t('marketPrices')}
             </CardTitle>
             <CardDescription>
-              Current market rates for major crops in your region
+              {t('marketSubtitle')}
             </CardDescription>
           </CardHeader>
           <CardContent className="relative space-y-4">
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search crops..."
+                placeholder={t('searchCrops')}
                 className="w-full px-4 py-2 border border-border rounded-lg bg-background/50 focus:outline-none focus:ring-2 focus:ring-success/50 focus:border-success"
                 onChange={(e) => {
                   const searchTerm = e.target.value.toLowerCase();
@@ -330,14 +332,14 @@ export default function Home() {
             </div>
             <div className="space-y-3 max-h-64 overflow-y-auto">
               {[
-                { name: 'Rice (Paddy)', price: '2,850', unit: 'per quintal', trend: 'up' },
-                { name: 'Wheat', price: '2,100', unit: 'per quintal', trend: 'down' },
-                { name: 'Sugarcane', price: '350', unit: 'per quintal', trend: 'up' },
-                { name: 'Cotton', price: '6,200', unit: 'per quintal', trend: 'up' },
-                { name: 'Turmeric', price: '8,500', unit: 'per quintal', trend: 'down' },
-                { name: 'Onion', price: '1,200', unit: 'per quintal', trend: 'up' },
-                { name: 'Tomato', price: '2,800', unit: 'per quintal', trend: 'down' },
-                { name: 'Potato', price: '1,800', unit: 'per quintal', trend: 'up' }
+                { name: 'Rice (Paddy)', price: '2,850', unit: t('perQuintal'), trend: 'up' },
+                { name: 'Wheat', price: '2,100', unit: t('perQuintal'), trend: 'down' },
+                { name: 'Sugarcane', price: '350', unit: t('perQuintal'), trend: 'up' },
+                { name: 'Cotton', price: '6,200', unit: t('perQuintal'), trend: 'up' },
+                { name: 'Turmeric', price: '8,500', unit: t('perQuintal'), trend: 'down' },
+                { name: 'Onion', price: '1,200', unit: t('perQuintal'), trend: 'up' },
+                { name: 'Tomato', price: '2,800', unit: t('perQuintal'), trend: 'down' },
+                { name: 'Potato', price: '1,800', unit: t('perQuintal'), trend: 'up' }
               ].map((crop, index) => (
                 <div key={index} className="crop-item flex items-center justify-between p-3 bg-background/50 rounded-lg border border-border/50 hover:bg-background/80 transition-colors">
                   <div>

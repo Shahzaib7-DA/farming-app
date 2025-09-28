@@ -1,16 +1,18 @@
 import { Link, useLocation } from 'react-router-dom';
 import { User, MessageCircle, FileText, Sprout } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const navItems = [
-  { href: '/', icon: Sprout, label: 'Home' },
-  { href: '/profile', icon: User, label: 'Profile' },
-  { href: '/query', icon: MessageCircle, label: 'Ask Query' },
-  { href: '/activities', icon: FileText, label: 'Activities' },
-];
+import { useLanguage } from '@/hooks/useLanguage';
 
 export function Navigation() {
   const location = useLocation();
+  const { t } = useLanguage();
+
+  const navItems = [
+    { href: '/', icon: Sprout, label: t('home') },
+    { href: '/profile', icon: User, label: t('profile') },
+    { href: '/query', icon: MessageCircle, label: t('query') },
+    { href: '/activities', icon: FileText, label: t('activities') },
+  ];
 
   return (
     <nav className="border-t border-border bg-card">
