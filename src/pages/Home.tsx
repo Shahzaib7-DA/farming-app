@@ -3,10 +3,14 @@ import { MessageCircle, User, FileText, TrendingUp, Volume2, ChevronLeft, Chevro
 import { Layout } from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+// import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import HeroSwiper from '@/components/HeroSwiper';
+import MarketInfoCarousel from '@/components/MarketInfoCarousel';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useLanguage } from '@/hooks/useLanguage';
 import { FarmerProfile } from '@/types/farmer';
+import { LoginIconButton } from '@/components/LoginIconButton';
+import { DeleteProfileButton } from '@/components/DeleteProfileButton';
 
 export default function Home() {
   const [farmerProfile] = useLocalStorage<FarmerProfile | null>('farmerProfile', null);
@@ -14,166 +18,15 @@ export default function Home() {
 
   return (
     <Layout title={t('appTitle')}>
+      {/* Login/Signup icon at top right */}
+      <LoginIconButton />
       <div className="space-y-8">
-        {/* Enhanced Welcome Slideshow */}
-        <div className="relative overflow-hidden rounded-3xl">
-          <Carousel className="w-full">
-            <CarouselContent>
-              {/* Slide 1: Welcome to KrishiSakhi */}
-              <CarouselItem>
-                <div className="relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-success/15 rounded-3xl"></div>
-                  
-                  {/* Floating Creative Elements */}
-                  <div className="absolute top-8 left-8 w-16 h-16 bg-gradient-to-br from-accent/30 to-primary/30 rounded-full animate-pulse opacity-60"></div>
-                  <div className="absolute top-16 right-12 w-8 h-8 bg-gradient-to-br from-success/40 to-accent/40 rounded-full animate-bounce opacity-70"></div>
-                  <div className="absolute bottom-12 left-16 w-12 h-12 bg-gradient-to-br from-primary/30 to-success/30 rounded-full animate-pulse opacity-50"></div>
-                  <div className="absolute bottom-8 right-8 w-6 h-6 bg-gradient-to-br from-accent/50 to-primary/50 rounded-full animate-bounce opacity-80"></div>
-                  
-                  {/* Floating Icons */}
-                  <div className="absolute top-20 right-20 text-2xl animate-bounce opacity-30">🌱</div>
-                  <div className="absolute bottom-20 left-20 text-xl animate-pulse opacity-40">🚜</div>
-                  <div className="absolute top-32 left-32 text-lg animate-bounce opacity-35">☀️</div>
-                  
-                  <div className="relative text-center space-y-6 py-16 px-6 backdrop-blur-[1px]">
-                    {/* Enhanced Central Icon with Ripple Effect */}
-                    <div className="relative mx-auto w-28 h-28">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-full animate-ping opacity-20"></div>
-                      <div className="absolute inset-2 bg-gradient-to-br from-accent to-success rounded-full animate-pulse opacity-30"></div>
-                      <div className="relative w-24 h-24 mx-auto bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-xl shadow-primary/20 animate-bounce-gentle border-2 border-white/20">
-                        <span className="text-4xl animate-pulse filter drop-shadow-lg">🌾</span>
-                      </div>
-                    </div>
-                    
-                    <div className="animate-fade-in space-y-4 relative">
-                      {/* Decorative Lines */}
-                      <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-24 h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
-                      
-                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%] relative">
-                        {farmerProfile ? `${t('welcomeBack')}, ${farmerProfile.name}!` : t('welcomeTo')}
-                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-primary via-accent to-success rounded-full opacity-30"></div>
-                      </h2>
-                      
-                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed relative bg-white/5 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/10">
-                        {farmerProfile 
-                          ? t('farmingCompanion', { crop: farmerProfile.crop, district: farmerProfile.district })
-                          : t('intelligentAssistant')
-                        }
-                      </p>
-                      
-                      {farmerProfile && (
-                        <div className="animate-scale-in">
-                          <div className="relative inline-flex items-center justify-center gap-2 bg-success/15 text-success px-6 py-3 rounded-full text-base font-medium border border-success/30 backdrop-blur-sm shadow-lg shadow-success/10">
-                            <div className="absolute inset-0 bg-gradient-to-r from-success/10 to-success/5 rounded-full"></div>
-                            <div className="relative flex items-center gap-2">
-                              <div className="w-3 h-3 bg-success rounded-full animate-pulse shadow-sm shadow-success/50"></div>
-                              <span className="bg-gradient-to-r from-success to-success/80 bg-clip-text text-transparent font-semibold">{t('profileActive')}</span>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Decorative Bottom Line */}
-                      <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-16 h-0.5 bg-gradient-to-r from-transparent via-success to-transparent opacity-40"></div>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-
-              {/* Slide 2: Ask Query */}
-              <CarouselItem>
-                <div className="relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-accent/15 rounded-3xl"></div>
-                  <div className="relative text-center space-y-6 py-16 px-6">
-                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center shadow-xl">
-                      <MessageCircle className="h-12 w-12 text-white animate-pulse" />
-                    </div>
-                    <div className="animate-fade-in space-y-4">
-                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                        {t('askQueries')}
-                      </h2>
-                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        {t('queryDescription')}
-                      </p>
-                      <Button asChild className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-white shadow-lg hover:shadow-accent/25 transition-all duration-300 hover:scale-105 px-8 py-3 text-lg">
-                        <Link to="/query" className="flex items-center gap-3">
-                          <MessageCircle className="h-5 w-5" />
-                          {t('startAsking')}
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-
-              {/* Slide 3: Log Activities */}
-              <CarouselItem>
-                <div className="relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-success/20 via-primary/10 to-success/15 rounded-3xl"></div>
-                  <div className="relative text-center space-y-6 py-16 px-6">
-                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-success to-primary rounded-full flex items-center justify-center shadow-xl">
-                      <FileText className="h-12 w-12 text-white animate-pulse" />
-                    </div>
-                    <div className="animate-fade-in space-y-4">
-                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-success via-primary to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                        {t('trackActivities')}
-                      </h2>
-                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        {t('activitiesDescription')}
-                      </p>
-                      <Button asChild className="bg-gradient-to-r from-success to-primary hover:from-success/90 hover:to-primary/90 text-white shadow-lg hover:shadow-success/25 transition-all duration-300 hover:scale-105 px-8 py-3 text-lg">
-                        <Link to="/activities" className="flex items-center gap-3">
-                          <FileText className="h-5 w-5" />
-                          {t('manageActivities')}
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-
-              {/* Slide 4: Market Prices & Schemes */}
-              <CarouselItem>
-                <div className="relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-warning/20 via-primary/10 to-warning/15 rounded-3xl"></div>
-                  <div className="relative text-center space-y-6 py-16 px-6">
-                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-warning to-primary rounded-full flex items-center justify-center shadow-xl">
-                      <div className="flex items-center gap-1">
-                        <TrendingUp className="h-6 w-6 text-white" />
-                        <Volume2 className="h-6 w-6 text-white animate-pulse" />
-                      </div>
-                    </div>
-                    <div className="animate-fade-in space-y-4">
-                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-warning via-primary to-warning bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                        {t('marketSchemes')}
-                      </h2>
-                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                        {t('marketDescription')}
-                      </p>
-                      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <Button className="bg-gradient-to-r from-warning to-primary hover:from-warning/90 hover:to-primary/90 text-white shadow-lg hover:shadow-warning/25 transition-all duration-300 hover:scale-105 px-6 py-3">
-                          <TrendingUp className="h-5 w-5 mr-2" />
-                          {t('viewPrices')}
-                        </Button>
-                        <Button variant="outline" className="border-warning/30 hover:bg-warning hover:text-warning-foreground transition-all duration-300 px-6 py-3">
-                          <Volume2 className="h-5 w-5 mr-2" />
-                          {t('latestSchemes')}
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CarouselItem>
-            </CarouselContent>
-            
-            {/* Custom Navigation */}
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-              <CarouselPrevious className="relative left-0 transform-none bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white" />
-              <CarouselNext className="relative right-0 transform-none bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white" />
-            </div>
-          </Carousel>
+        {/* Delete profile button for user to clear farm profile and activities */}
+        <div className="flex justify-end">
+          <DeleteProfileButton />
         </div>
-
+        {/* Modern Swiper Hero Banner */}
+        <HeroSwiper />
         {/* Enhanced Profile Status */}
         {farmerProfile ? (
           <div className="animate-fade-in">
@@ -296,68 +149,8 @@ export default function Home() {
           </Card>
         </div>
 
-        {/* Market Prices */}
-        <Card className="relative overflow-hidden border-success/20 bg-gradient-to-br from-card to-success/5">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-success/10 rounded-full -translate-y-16 translate-x-16"></div>
-          <CardHeader className="relative">
-            <CardTitle className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center">
-                <span className="text-success font-bold text-lg">₹</span>
-              </div>
-              {t('marketPrices')}
-            </CardTitle>
-            <CardDescription>
-              {t('marketSubtitle')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="relative space-y-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={t('searchCrops')}
-                className="w-full px-4 py-2 border border-border rounded-lg bg-background/50 focus:outline-none focus:ring-2 focus:ring-success/50 focus:border-success"
-                onChange={(e) => {
-                  const searchTerm = e.target.value.toLowerCase();
-                  const items = document.querySelectorAll('.crop-item') as NodeListOf<HTMLElement>;
-                  items.forEach(item => {
-                    const cropName = item.querySelector('.crop-name')?.textContent?.toLowerCase();
-                    if (cropName?.includes(searchTerm)) {
-                      item.style.display = 'flex';
-                    } else {
-                      item.style.display = 'none';
-                    }
-                  });
-                }}
-              />
-            </div>
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {[
-                { name: 'Rice (Paddy)', price: '2,850', unit: t('perQuintal'), trend: 'up' },
-                { name: 'Wheat', price: '2,100', unit: t('perQuintal'), trend: 'down' },
-                { name: 'Sugarcane', price: '350', unit: t('perQuintal'), trend: 'up' },
-                { name: 'Cotton', price: '6,200', unit: t('perQuintal'), trend: 'up' },
-                { name: 'Turmeric', price: '8,500', unit: t('perQuintal'), trend: 'down' },
-                { name: 'Onion', price: '1,200', unit: t('perQuintal'), trend: 'up' },
-                { name: 'Tomato', price: '2,800', unit: t('perQuintal'), trend: 'down' },
-                { name: 'Potato', price: '1,800', unit: t('perQuintal'), trend: 'up' }
-              ].map((crop, index) => (
-                <div key={index} className="crop-item flex items-center justify-between p-3 bg-background/50 rounded-lg border border-border/50 hover:bg-background/80 transition-colors">
-                  <div>
-                    <div className="crop-name font-medium text-foreground">{crop.name}</div>
-                    <div className="text-sm text-muted-foreground">{crop.unit}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-foreground">₹{crop.price}</div>
-                    <div className={`text-xs flex items-center gap-1 ${crop.trend === 'up' ? 'text-success' : 'text-destructive'}`}>
-                      <span>{crop.trend === 'up' ? '↗' : '↘'}</span>
-                      {crop.trend === 'up' ? '+2.5%' : '-1.8%'}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        {/* Market Info & Alerts Carousel */}
+        <MarketInfoCarousel />
       </div>
     </Layout>
   );

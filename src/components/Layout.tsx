@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { Navigation } from './Navigation';
 import { StatusIndicator } from './StatusIndicator';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { DarkModeSwitch } from './DarkModeSwitch';
 import { useLanguage } from '@/hooks/useLanguage';
 
 interface LayoutProps {
@@ -28,6 +29,7 @@ export function Layout({ children, title }: LayoutProps) {
             </div>
             <div className="flex items-center gap-2">
               <LanguageSwitcher />
+              <DarkModeSwitch />
               <StatusIndicator />
             </div>
           </div>
