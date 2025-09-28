@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { MessageCircle, User, FileText } from 'lucide-react';
+import { MessageCircle, User, FileText, TrendingUp, Volume2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Layout } from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { FarmerProfile } from '@/types/farmer';
 
@@ -12,31 +13,131 @@ export default function Home() {
   return (
     <Layout title="Agricultural Assistant">
       <div className="space-y-8">
-        {/* Enhanced Welcome Section */}
-        <div className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-primary/5 to-success/10 rounded-3xl"></div>
-          <div className="relative text-center space-y-6 py-12 px-6">
-            <div className="animate-bounce-gentle mx-auto w-20 h-20 bg-gradient-to-br from-accent to-success rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-3xl animate-pulse">🌾</span>
+        {/* Enhanced Welcome Slideshow */}
+        <div className="relative overflow-hidden rounded-3xl">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {/* Slide 1: Welcome to KrishiSakhi */}
+              <CarouselItem>
+                <div className="relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-accent/10 to-success/15 rounded-3xl"></div>
+                  <div className="relative text-center space-y-6 py-16 px-6">
+                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-xl">
+                      <span className="text-4xl animate-pulse">🌾</span>
+                    </div>
+                    <div className="animate-fade-in space-y-4">
+                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-accent to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
+                        {farmerProfile ? `Welcome back, ${farmerProfile.name}!` : 'Welcome to KrishiSakhi'}
+                      </h2>
+                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        {farmerProfile 
+                          ? `Your intelligent farming companion for ${farmerProfile.crop} cultivation in ${farmerProfile.district}` 
+                          : 'Your intelligent agricultural assistant - empowering farmers with smart solutions'
+                        }
+                      </p>
+                      {farmerProfile && (
+                        <div className="animate-scale-in flex items-center justify-center gap-2 bg-success/10 text-success px-6 py-3 rounded-full text-base font-medium border border-success/20 max-w-fit mx-auto">
+                          <div className="w-3 h-3 bg-success rounded-full animate-pulse"></div>
+                          Profile Active - Ready to Assist
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+
+              {/* Slide 2: Ask Query */}
+              <CarouselItem>
+                <div className="relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-accent/15 rounded-3xl"></div>
+                  <div className="relative text-center space-y-6 py-16 px-6">
+                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center shadow-xl">
+                      <MessageCircle className="h-12 w-12 text-white animate-pulse" />
+                    </div>
+                    <div className="animate-fade-in space-y-4">
+                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
+                        Ask Agricultural Queries
+                      </h2>
+                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        Get instant expert advice on crop diseases, pest control, soil health, and farming techniques. Our AI is trained on agricultural best practices.
+                      </p>
+                      <Button asChild className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-white shadow-lg hover:shadow-accent/25 transition-all duration-300 hover:scale-105 px-8 py-3 text-lg">
+                        <Link to="/query" className="flex items-center gap-3">
+                          <MessageCircle className="h-5 w-5" />
+                          Start Asking Questions
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+
+              {/* Slide 3: Log Activities */}
+              <CarouselItem>
+                <div className="relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-success/20 via-primary/10 to-success/15 rounded-3xl"></div>
+                  <div className="relative text-center space-y-6 py-16 px-6">
+                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-success to-primary rounded-full flex items-center justify-center shadow-xl">
+                      <FileText className="h-12 w-12 text-white animate-pulse" />
+                    </div>
+                    <div className="animate-fade-in space-y-4">
+                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-success via-primary to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
+                        Track Farm Activities
+                      </h2>
+                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        Log your daily farming activities, track progress, and get personalized recommendations based on your farming patterns and practices.
+                      </p>
+                      <Button asChild className="bg-gradient-to-r from-success to-primary hover:from-success/90 hover:to-primary/90 text-white shadow-lg hover:shadow-success/25 transition-all duration-300 hover:scale-105 px-8 py-3 text-lg">
+                        <Link to="/activities" className="flex items-center gap-3">
+                          <FileText className="h-5 w-5" />
+                          Manage Activities
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+
+              {/* Slide 4: Market Prices & Schemes */}
+              <CarouselItem>
+                <div className="relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-warning/20 via-primary/10 to-warning/15 rounded-3xl"></div>
+                  <div className="relative text-center space-y-6 py-16 px-6">
+                    <div className="animate-bounce-gentle mx-auto w-24 h-24 bg-gradient-to-br from-warning to-primary rounded-full flex items-center justify-center shadow-xl">
+                      <div className="flex items-center gap-1">
+                        <TrendingUp className="h-6 w-6 text-white" />
+                        <Volume2 className="h-6 w-6 text-white animate-pulse" />
+                      </div>
+                    </div>
+                    <div className="animate-fade-in space-y-4">
+                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-warning via-primary to-warning bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
+                        Market Prices & Schemes
+                      </h2>
+                      <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                        Stay updated with latest market prices for your crops and discover government schemes that can benefit your farming operations.
+                      </p>
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <Button className="bg-gradient-to-r from-warning to-primary hover:from-warning/90 hover:to-primary/90 text-white shadow-lg hover:shadow-warning/25 transition-all duration-300 hover:scale-105 px-6 py-3">
+                          <TrendingUp className="h-5 w-5 mr-2" />
+                          View Market Prices
+                        </Button>
+                        <Button variant="outline" className="border-warning/30 hover:bg-warning hover:text-warning-foreground transition-all duration-300 px-6 py-3">
+                          <Volume2 className="h-5 w-5 mr-2" />
+                          Latest Schemes
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            </CarouselContent>
+            
+            {/* Custom Navigation */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+              <CarouselPrevious className="relative left-0 transform-none bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white" />
+              <CarouselNext className="relative right-0 transform-none bg-white/20 border-white/30 text-white hover:bg-white/30 hover:text-white" />
             </div>
-            <div className="animate-fade-in">
-              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-primary via-accent to-success bg-clip-text text-transparent animate-gradient-shift bg-[length:200%_200%]">
-                {farmerProfile ? `Welcome back, ${farmerProfile.name}!` : 'Welcome to KrishiSakhi'}
-              </h2>
-              <p className="text-lg text-muted-foreground mt-3 max-w-md mx-auto">
-                {farmerProfile 
-                  ? `Ready to assist with your ${farmerProfile.crop} farming in ${farmerProfile.district}` 
-                  : 'Your intelligent offline-capable agricultural assistant'
-                }
-              </p>
-            </div>
-            {farmerProfile && (
-              <div className="animate-scale-in flex items-center justify-center gap-2 bg-success/10 text-success px-4 py-2 rounded-full text-sm font-medium border border-success/20 max-w-fit mx-auto">
-                <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
-                Profile Active
-              </div>
-            )}
-          </div>
+          </Carousel>
         </div>
 
         {/* Enhanced Profile Status */}
