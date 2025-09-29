@@ -1,4 +1,5 @@
 import React from "react";
+import { useLanguage } from "@/hooks/useLanguage";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { motion } from "framer-motion";
@@ -6,50 +7,58 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-const slides = [
+const baseSlides = [
   {
     bg: "url('/public/slide1.jpg')",
     gradient: "bg-gradient-to-br from-green-500 to-emerald-700",
-    heading: "Welcome to KrishiSakhi",
-    text: "Your smart farming companion. Get personalized advice, track activities, and boost your yield!",
-    cta1: "Get Started",
-    cta2: "Learn More",
+    headingKey: "welcomeTo",
+    textKey: "intelligentAssistant",
+    cta1Key: "getStarted",
+    cta2Key: "learnMore",
     cta1Link: "/login",
     cta2Link: "/query",
   },
   {
     bg: "url('/public/slide2.jpg')",
     gradient: "bg-gradient-to-br from-sky-500 to-indigo-600",
-    heading: "Ask Farm Queries Instantly",
-  text: "Have a question about your crops, pests, or the market? Just ask the Farmer Assistant—your smart AI helper is always ready to listen and guide you instantly! Tap below to start a conversation.",
-    cta1: "Ask Now",
-    cta2: "Learn More",
+    headingKey: "askQueries",
+    textKey: "queryDescription",
+    cta1Key: "askNow",
+    cta2Key: "learnMore",
     cta1Link: "/query",
     cta2Link: "/activities",
   },
   {
     bg: "url('/public/slide3.jpg')",
     gradient: "bg-gradient-to-br from-amber-400 to-orange-600",
-    heading: "Track & Log Activities",
-    text: "Easily record sowing, irrigation, and harvests. Stay organized and maximize your farm's potential.",
-    cta1: "Log Activity",
-    cta2: "Learn More",
+    headingKey: "trackActivities",
+    textKey: "activitiesDescription",
+    cta1Key: "logActivity",
+    cta2Key: "learnMore",
     cta1Link: "/activities",
     cta2Link: "/profile",
   },
   {
     bg: "url('/public/slide4.jpg')",
     gradient: "bg-gradient-to-br from-yellow-400 to-orange-500",
-    heading: "Market Prices in One Click",
-    text: "Instantly view the latest prices for top crops across markets. Swipe to explore, compare, and stay updated—empowering your farm business with real-time market insights!",
-    cta1: "See Prices",
-    cta2: "Learn More",
+    headingKey: "marketSchemes",
+    textKey: "marketDescription",
+    cta1Key: "seePrices",
+    cta2Key: "learnMore",
     cta1Link: "/#market-prices",
     cta2Link: "/query",
   },
 ];
 
 export default function HeroSwiper() {
+  const { t } = useLanguage();
+  const slides = baseSlides.map((s) => ({
+    ...s,
+    heading: t(s.headingKey as string),
+    text: t(s.textKey as string),
+    cta1: t(s.cta1Key as string),
+    cta2: t(s.cta2Key as string),
+  }));
   return (
     <div className="relative w-full rounded-3xl overflow-hidden shadow-xl">
       <Swiper

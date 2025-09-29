@@ -15,10 +15,12 @@ import { SummaryRecommendations } from '@/components/ui/summary-recommendations'
 import { useNetworkStatus } from '@/hooks/useNetworkStatus';
 import { ActivityLog, FarmerProfile } from '@/types/farmer';
 import { toast } from '@/hooks/use-toast';
+import { useLanguage } from '@/hooks/useLanguage';
 
 type ActivityItem = ActivityLog; // date is Date
 
 export default function Activities() {
+  const { t } = useLanguage();
   // --- HOOKS & STATE (must be at the top) ---
   const [activities, setActivities] = useLocalStorage<ActivityItem[]>("activities", []);
   const [farmerProfile] = useLocalStorage<FarmerProfile | null>("farmerProfile", null);
@@ -91,22 +93,22 @@ export default function Activities() {
 
   // render
   return (
-    <Layout title="Farm Activities">
+    <Layout title={t('pageTitleActivities')}>
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-foreground">Activity Log</h2>
+          <h2 className="text-xl font-semibold text-foreground">{t('activityLog')}</h2>
           <div className="flex items-center gap-3">
             {unsyncedCount > 0 && isOnline && !isSyncing && (
               <Button variant="outline" size="sm" onClick={syncUnsyncedActivities} className="text-warning border-warning/20">
                 <Upload className="mr-2 h-4 w-4" />
-                Sync ({unsyncedCount})
+                {t('sync')} ({unsyncedCount})
               </Button>
             )}
             {isSyncing && (
               <Button variant="ghost" size="sm" className="opacity-80">
                 <Upload className="mr-2 h-4 w-4 animate-spin" />
-                Syncing...
+                {t('syncing')}
               </Button>
             )}
           </div>
@@ -128,7 +130,7 @@ export default function Activities() {
                             {formatDate(activity.date)}
                           </div>
                           <div className="flex items-center gap-1">
-                            {activity.synced ? <span className="text-xs text-success">Synced</span> : <span className="text-xs text-muted-foreground">Local</span>}
+                            {activity.synced ? <span className="text-xs text-success">{t('synced')}</span> : <span className="text-xs text-muted-foreground">{t('local')}</span>}
                           </div>
                         </div>
                       </div>
@@ -175,13 +177,13 @@ export default function Activities() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium text-warning">
-                      {unsyncedCount} activities pending sync
+                      {t('pendingSync', { count: String(unsyncedCount) })}
                     </p>
-                    <p className="text-sm text-muted-foreground">{isOnline ? lastSyncedText : 'Offline — will sync when online'}</p>
+                    <p className="text-sm text-muted-foreground">{isOnline ? lastSyncedText : t('offlineWillSync')}</p>
                   </div>
                   <div className="flex flex-col items-end">
                     <div className={`h-3 w-3 rounded-full ${isOnline ? 'bg-green-500' : 'bg-red-400'}`} aria-hidden />
-                    <p className="text-xs text-muted-foreground mt-1">{isOnline ? 'Online' : 'Offline'}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{isOnline ? t('online') : t('offline')}</p>
                   </div>
                 </div>
               </CardContent>
@@ -189,16 +191,16 @@ export default function Activities() {
 
             {/* Activities List */}
             <Card className="text-center py-12">
-              <CardHeader>
-                <CardTitle className="text-muted-foreground">No Activities Yet</CardTitle>
-                <CardDescription>Start logging your farming activities to track your progress</CardDescription>
+                <CardHeader>
+                  <CardTitle className="text-muted-foreground">{t('noActivitiesYet')}</CardTitle>
+                  <CardDescription>{t('startLogging')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button>
+                      <Button>
                       <Plus className="mr-2 h-4 w-4" />
-                      Add First Activity
+                        {t('addFirstActivity')}
                     </Button>
                   </DialogTrigger>
                 </Dialog>

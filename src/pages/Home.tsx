@@ -137,19 +137,19 @@ function Home() {
                   <MessageCircle className="h-6 w-6 text-accent group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div>
-                  <div className="text-lg font-bold">Ask Agricultural Query</div>
-                  <div className="text-sm text-muted-foreground">Get instant expert advice</div>
+                  <div className="text-lg font-bold">{t('askQuery')}</div>
+                  <div className="text-sm text-muted-foreground">{t('querySubtitle')}</div>
                 </div>
               </CardTitle>
               <CardDescription className="text-base">
-                Get instant answers to your farming questions, even offline. Our AI assistant is trained on agricultural best practices.
+                {t('queryDescription2')}
               </CardDescription>
             </CardHeader>
             <CardContent className="relative">
               <Button asChild variant="outline" className="w-full border-accent/30 hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:shadow-lg">
                 <Link to="/query" className="flex items-center justify-center gap-2">
                   <MessageCircle className="h-4 w-4" />
-                  Start Asking Questions
+                  {t('startAsking')}
                 </Link>
               </Button>
             </CardContent>
@@ -163,19 +163,19 @@ function Home() {
                   <FileText className="h-6 w-6 text-primary group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div>
-                  <div className="text-lg font-bold">Log Farm Activities</div>
-                  <div className="text-sm text-muted-foreground">Track your farming progress</div>
+                  <div className="text-lg font-bold">{t('logActivities')}</div>
+                  <div className="text-sm text-muted-foreground">{t('activitiesSubtitle')}</div>
                 </div>
               </CardTitle>
               <CardDescription className="text-base">
-                Track your daily farming activities for better insights and personalized recommendations based on your farming patterns.
+                {t('activitiesDescription2')}
               </CardDescription>
             </CardHeader>
             <CardContent className="relative">
               <Button asChild variant="outline" className="w-full border-primary/30 hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:shadow-lg">
                 <Link to="/activities" className="flex items-center justify-center gap-2">
                   <FileText className="h-4 w-4" />
-                  Manage Activities
+                  {t('manageActivities')}
                 </Link>
               </Button>
             </CardContent>
@@ -197,22 +197,22 @@ function Home() {
                   <TrendingUp className="h-7 w-7 text-pink-500 dark:text-pink-300 group-hover:scale-110 transition-transform duration-300" />
                 </div>
                 <div>
-                  <div className="text-xl font-extrabold tracking-tight text-pink-700 dark:text-pink-200 flex items-center">Crop Disease Detection <span className='ml-2 px-2 py-1 text-xs rounded-full bg-pink-500 dark:bg-pink-700 text-white shadow-md animate-bounce'>Coming Soon</span></div>
-                  <div className="text-sm text-pink-700/80 dark:text-pink-200/80">Detect diseases with just one photo click</div>
+                  <div className="text-xl font-extrabold tracking-tight text-pink-700 dark:text-pink-200 flex items-center">{t('cropDiseaseDetection')} <span className='ml-2 px-2 py-1 text-xs rounded-full bg-pink-500 dark:bg-pink-700 text-white shadow-md animate-bounce'>{t('comingSoon')}</span></div>
+                  <div className="text-sm text-pink-700/80 dark:text-pink-200/80">{t('detectDiseasesSubtitle')}</div>
                 </div>
               </CardTitle>
               <CardDescription className="text-base mt-2 text-pink-900 dark:text-pink-100/90 font-medium">
                 <span className="inline-flex items-center gap-2">
                   <svg className="w-5 h-5 text-pink-400 dark:text-pink-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6-6m2 2a9 9 0 11-6.32-2.59" /></svg>
-                  Snap a photo of your crop and instantly detect diseases using AI.
+                  {t('snapPhotoLine')}
                 </span>
                 <br />
                 <span className="inline-flex items-center gap-2 mt-1">
                   <svg className="w-5 h-5 text-pink-400 dark:text-pink-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3" /></svg>
-                  Early detection helps you take action fast and protect your yield.
+                  {t('earlyDetectionLine')}
                 </span>
                 <br />
-                <span className="font-bold text-pink-500 dark:text-pink-300">Coming Soon!</span>
+                <span className="font-bold text-pink-500 dark:text-pink-300">{t('comingSoonShort')}</span>
               </CardDescription>
             </CardHeader>
           </Card>

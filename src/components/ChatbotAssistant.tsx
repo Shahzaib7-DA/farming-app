@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiMessageCircle, FiX, FiSend } from "react-icons/fi";
 import { VoiceButton } from "./VoiceButton";
 import localAnswers from "../data/localDB.json";
+import { useLanguage } from "@/hooks/useLanguage";
 export default function ChatbotAssistant() {
   type ChatMessage = {
     sender: string;
@@ -14,7 +15,7 @@ export default function ChatbotAssistant() {
   const initialMessages: ChatMessage[] = [
     {
       sender: "assistant",
-      text: "👋 Hi, I am your Assistant. I’m here to help you with your farm queries.",
+      text: "__INIT__",
     },
   ];
 
@@ -34,6 +35,7 @@ export default function ChatbotAssistant() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const offlineVoicePlayed = useRef({ en: false, ml: false });
   const summarySpokenRef = useRef<{ [key: string]: boolean }>({});
+  const { t, language } = useLanguage();
 
   // Auto-reply when going offline
   useNetworkStatusEffect((online) => {
@@ -67,6 +69,15 @@ export default function ChatbotAssistant() {
 
 
   useEffect(() => {
+    // Initialize first assistant message localized
+    setMessages((prev) => {
+      if (prev.length > 0 && prev[0].text === "__INIT__") {
+        const next = [...prev];
+        next[0] = { sender: "assistant", text: t('assistantIntro') };
+        return next;
+      }
+      return prev;
+    });
     if (open && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -111,7 +122,7 @@ export default function ChatbotAssistant() {
               className="mb-1 px-4 py-2 rounded-2xl rounded-br-none bg-gradient-to-br from-blue-500/90 to-green-500/90 text-white font-semibold shadow-lg text-base md:text-lg border border-white/20 dark:border-white/10 animate-bounce"
               style={{ boxShadow: '0 4px 24px 0 rgba(34,197,94,0.15)' }}
             >
-              <span className="drop-shadow">Need help? <span className="font-bold">Ask!</span></span>
+              <span className="drop-shadow">{t('chatBubblePrompt')}</span>
             </motion.div>
             {/* Pulsing button */}
             <motion.button
@@ -143,7 +154,7 @@ export default function ChatbotAssistant() {
           >
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-green-600/80 to-blue-600/80">
-              <span className="font-bold text-white text-lg">Farmer Assistant</span>
+              <span className="font-bold text-white text-lg">{t('chatHeaderTitle')}</span>
               <button
                 className="text-white hover:text-red-200 text-xl focus:outline-none"
                 onClick={() => setOpen(false)}
@@ -177,7 +188,7 @@ export default function ChatbotAssistant() {
               {typing && (
                 <div className="flex justify-start">
                   <div className="bg-blue-400 text-white rounded-2xl rounded-bl-sm px-4 py-2 max-w-[75%] shadow-md text-left animate-pulse">
-                    Assistant is typing...
+                    {t('typingIndicator')}
                   </div>
                 </div>
               )}
@@ -194,7 +205,7 @@ export default function ChatbotAssistant() {
               <input
                 type="text"
                 className="flex-1 rounded-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-800 bg-white"
-                placeholder="Type your message..."
+                placeholder={t('inputPlaceholder')}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 disabled={typing}

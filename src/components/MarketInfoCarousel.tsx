@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { AskSummaryButton } from "./AskSummaryButton";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const marketPrices = [
   { name: 'Rice (Paddy)', price: '2,850', unit: 'per Quintal', trend: 'up' },
@@ -35,6 +36,7 @@ const weatherAlerts = [
   { type: 'Heatwave', alert: 'Max temp 41°C. Mulch and irrigate early morning.' },
 ];
 function MarketInfoCarousel() {
+  const { t } = useLanguage();
   const swiperRef = React.useRef<any>(null);
   // Communicate with ChatbotAssistant via window event
   function sendSummaryToAssistant(summaryEn: string, summaryMl: string, summaryKey: string) {
@@ -70,11 +72,11 @@ function MarketInfoCarousel() {
         <SwiperSlide>
           <div className="relative rounded-2xl p-5 md:p-8 bg-gradient-to-br from-green-100 via-beige-50 to-green-200 dark:from-green-900 dark:via-stone-900 dark:to-green-950 shadow-lg overflow-hidden min-h-[260px] border-2 border-green-200 dark:border-green-800" style={{backgroundImage:'url("/public/leaf-bg.svg")', backgroundRepeat:'no-repeat', backgroundPosition:'right bottom', backgroundSize:'180px'}}>
             <div className="absolute top-4 right-4 z-10">
-              <AskSummaryButton onClick={() => sendSummaryToAssistant(marketSummaryEn, marketSummaryMl, 'market')} label="Ask Assistant: Market Summary" />
+              <AskSummaryButton onClick={() => sendSummaryToAssistant(marketSummaryEn, marketSummaryMl, 'market')} label={t('askAssistantMarketSummary')} />
             </div>
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="text-green-700 dark:text-green-300" />
-              <span className="font-bold text-green-800 dark:text-green-100 text-xl tracking-wide">Latest Market Prices</span>
+              <span className="font-bold text-green-800 dark:text-green-100 text-xl tracking-wide">{t('marketPrices')}</span>
               <Leaf className="ml-2 text-green-400 dark:text-green-700 opacity-60" size={22} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-56 overflow-y-auto pr-1">
@@ -91,7 +93,7 @@ function MarketInfoCarousel() {
                     <span className="font-semibold text-green-900 dark:text-green-100 text-base flex items-center gap-1">
                       <Sprout className="inline text-green-400 dark:text-green-200 mr-1" size={18} />{crop.name}
                     </span>
-                    <span className="text-xs text-brown-700 dark:text-green-300">{crop.unit}</span>
+                    <span className="text-xs text-brown-700 dark:text-green-300">{t('perQuintal')}</span>
                   </div>
                   <div className="text-right">
                     <span className="font-bold text-lg text-brown-900 dark:text-green-100">₹{crop.price}</span>
@@ -115,11 +117,11 @@ function MarketInfoCarousel() {
         <SwiperSlide>
           <div className="relative rounded-2xl p-5 md:p-8 bg-gradient-to-br from-blue-50 via-yellow-50 to-blue-100 dark:from-blue-900 dark:via-yellow-900 dark:to-blue-950 shadow-lg overflow-hidden min-h-[220px] border-2 border-blue-200 dark:border-blue-800">
             <div className="absolute top-4 right-4 z-10">
-              <AskSummaryButton onClick={() => sendSummaryToAssistant(schemesSummaryEn, schemesSummaryMl, 'schemes')} label="Ask Assistant: Schemes Summary" />
+              <AskSummaryButton onClick={() => sendSummaryToAssistant(schemesSummaryEn, schemesSummaryMl, 'schemes')} label={t('askAssistantSchemesSummary')} />
             </div>
             <div className="flex items-center gap-2 mb-4">
               <Landmark className="text-blue-600 dark:text-blue-300" />
-              <span className="font-bold text-blue-800 dark:text-blue-100 text-xl tracking-wide">Govt. Schemes</span>
+              <span className="font-bold text-blue-800 dark:text-blue-100 text-xl tracking-wide">{t('govtSchemes')}</span>
               <ScrollText className="ml-2 text-yellow-400 dark:text-yellow-200 opacity-70" size={22} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -144,11 +146,11 @@ function MarketInfoCarousel() {
         <SwiperSlide>
           <div className="relative rounded-2xl p-5 md:p-8 bg-gradient-to-br from-yellow-100 via-orange-50 to-yellow-200 dark:from-yellow-900 dark:via-orange-900 dark:to-yellow-950 shadow-lg overflow-hidden min-h-[220px] border-2 border-orange-200 dark:border-orange-800">
             <div className="absolute top-4 right-4 z-10">
-              <AskSummaryButton onClick={() => sendSummaryToAssistant(pestSummaryEn, pestSummaryMl, 'pest')} label="Ask Assistant: Pest Summary" />
+              <AskSummaryButton onClick={() => sendSummaryToAssistant(pestSummaryEn, pestSummaryMl, 'pest')} label={t('askAssistantPestSummary')} />
             </div>
             <div className="flex items-center gap-2 mb-4">
               <Bug className="text-orange-500 dark:text-orange-300 animate-bounce" />
-              <span className="font-bold text-orange-700 dark:text-orange-100 text-xl tracking-wide">Pest Alerts</span>
+              <span className="font-bold text-orange-700 dark:text-orange-100 text-xl tracking-wide">{t('pestAlerts')}</span>
               <AlertTriangle className="ml-2 text-orange-400 dark:text-orange-200 opacity-70 animate-pulse" size={22} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -174,11 +176,11 @@ function MarketInfoCarousel() {
         <SwiperSlide>
           <div className="relative rounded-2xl p-5 md:p-8 bg-gradient-to-br from-blue-100 via-white to-blue-200 dark:from-blue-900 dark:via-stone-900 dark:to-blue-950 shadow-lg overflow-hidden min-h-[220px] border-2 border-blue-200 dark:border-blue-800">
             <div className="absolute top-4 right-4 z-10">
-              <AskSummaryButton onClick={() => sendSummaryToAssistant(weatherSummaryEn, weatherSummaryMl, 'weather')} label="Ask Assistant: Weather Summary" />
+              <AskSummaryButton onClick={() => sendSummaryToAssistant(weatherSummaryEn, weatherSummaryMl, 'weather')} label={t('askAssistantWeatherSummary')} />
             </div>
             <div className="flex items-center gap-2 mb-4">
               <CloudSun className="text-blue-500 dark:text-blue-300" />
-              <span className="font-bold text-blue-700 dark:text-blue-100 text-xl tracking-wide">Weather Alerts</span>
+              <span className="font-bold text-blue-700 dark:text-blue-100 text-xl tracking-wide">{t('weatherAlerts')}</span>
               <Sun className="ml-2 text-yellow-300 dark:text-yellow-200 opacity-70 animate-spin-slow" size={22} />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

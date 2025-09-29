@@ -59,7 +59,68 @@ export const translations = {
     // Language
     language: 'Language',
     english: 'English',
-    malayalam: 'മലയാളം'
+    malayalam: 'മലയാളം',
+
+    // CTA / Common
+    getStarted: 'Get Started',
+    learnMore: 'Learn More',
+    askNow: 'Ask Now',
+    logActivity: 'Log Activity',
+    seePrices: 'See Prices',
+
+    // Hero / Sections
+    govtSchemes: 'Govt. Schemes',
+    pestAlerts: 'Pest Alerts',
+    weatherAlerts: 'Weather Alerts',
+
+    // Assistant labels
+    askAssistantMarketSummary: 'Ask Assistant: Market Summary',
+    askAssistantSchemesSummary: 'Ask Assistant: Schemes Summary',
+    askAssistantPestSummary: 'Ask Assistant: Pest Summary',
+    askAssistantWeatherSummary: 'Ask Assistant: Weather Summary',
+
+    // Chat Assistant
+    assistantIntro: '👋 Hi, I am your Assistant. I’m here to help you with your farm queries.',
+    chatBubblePrompt: 'Need help? Ask!',
+    chatHeaderTitle: 'Farmer Assistant',
+    typingIndicator: 'Assistant is typing...',
+    inputPlaceholder: 'Type your message...',
+
+    // Query Page
+    askYourQuestion: 'Ask Your Question',
+    enhancedOnline: 'Enhanced Online',
+    offlineMode: 'Offline Mode',
+    textareaPlaceholder: 'Type your question... (e.g., Why are my paddy leaves yellow?)',
+    processing: 'Processing...',
+    getAnswer: 'Get Answer',
+    recentQueries: 'Recent Queries',
+    onlineBadge: '🌐 Online',
+    offlineBadge: '📦 Offline',
+    noQueriesYet: 'No queries yet',
+    startByAsking: 'Start by asking your first agricultural question above',
+
+    // Activities Page
+    pageTitleActivities: 'Farm Activities',
+    activityLog: 'Activity Log',
+    sync: 'Sync',
+    syncing: 'Syncing...',
+    synced: 'Synced',
+    local: 'Local',
+    pendingSync: '{count} activities pending sync',
+    offlineWillSync: 'Offline — will sync when online',
+    online: 'Online',
+    offline: 'Offline',
+    noActivitiesYet: 'No Activities Yet',
+    startLogging: 'Start logging your farming activities to track your progress',
+    addFirstActivity: 'Add First Activity',
+
+    // Home - Crop Disease Detection section
+    cropDiseaseDetection: 'Crop Disease Detection',
+    comingSoon: 'Coming Soon',
+    detectDiseasesSubtitle: 'Detect diseases with just one photo click',
+    snapPhotoLine: 'Snap a photo of your crop and instantly detect diseases using AI.',
+    earlyDetectionLine: 'Early detection helps you take action fast and protect your yield.',
+    comingSoonShort: 'Coming Soon!'
   },
   ml: {
     // App Title
@@ -121,7 +182,68 @@ export const translations = {
     // Language
     language: 'ഭാഷ',
     english: 'English',
-    malayalam: 'മലയാളം'
+    malayalam: 'മലയാളം',
+
+    // CTA / Common
+    getStarted: 'ആരംഭിക്കുക',
+    learnMore: 'കൂടുതൽ അറിയുക',
+    askNow: 'ഇപ്പോൾ ചോദിക്കുക',
+    logActivity: 'പ്രവർത്തനം രേഖപ്പെടുത്തുക',
+    seePrices: 'വിലകൾ കാണുക',
+
+    // Hero / Sections
+    govtSchemes: 'സർക്കാർ പദ്ധതികൾ',
+    pestAlerts: 'കീട മുന്നറിയിപ്പുകൾ',
+    weatherAlerts: 'കാലാവസ്ഥ മുന്നറിയിപ്പുകൾ',
+
+    // Assistant labels
+    askAssistantMarketSummary: 'അസിസ്റ്റന്റിനോട് ചോദിക്കുക: വിപണി സംഗ്രഹം',
+    askAssistantSchemesSummary: 'അസിസ്റ്റന്റിനോട് ചോദിക്കുക: പദ്ധതികളുടെ സംഗ്രഹം',
+    askAssistantPestSummary: 'അസിസ്റ്റന്റിനോട് ചോദിക്കുക: കീട സംഗ്രഹം',
+    askAssistantWeatherSummary: 'അസിസ്റ്റന്റിനോട് ചോദിക്കുക: കാലാവസ്ഥ സംഗ്രഹം',
+
+    // Chat Assistant
+    assistantIntro: '👋 ഹായ്, ഞാൻ നിങ്ങളുടെ അസിസ്റ്റന്റാണ്. നിങ്ങളുടെ കൃഷി ചോദ്യങ്ങൾക്ക് സഹായിക്കാൻ ഇവിടെ തയാറാണ്.',
+    chatBubblePrompt: 'സഹായം വേണോ? ചോദിക്കുക!',
+    chatHeaderTitle: 'കർഷക അസിസ്റ്റന്റ്',
+    typingIndicator: 'അസിസ്റ്റന്റ് ടൈപ്പ് ചെയ്യുന്നു...',
+    inputPlaceholder: 'നിങ്ങളുടെ സന്ദേശം ടൈപ്പ് ചെയ്യുക...',
+
+    // Query Page
+    askYourQuestion: 'നിങ്ങളുടെ ചോദ്യം ചോദിക്കുക',
+    enhancedOnline: 'ഓൺലൈൻ മെച്ചപ്പെട്ടത്',
+    offlineMode: 'ഓഫ്‌ലൈൻ മോഡ്',
+    textareaPlaceholder: 'നിങ്ങളുടെ ചോദ്യം ടൈപ്പ് ചെയ്യുക... (ഉദാ: നെൽ ഇലകൾ മഞ്ഞയാകുന്നത് എന്തുകൊണ്ട്?)',
+    processing: 'പ്രോസസ്സ് ചെയ്യുന്നു...',
+    getAnswer: 'ഉത്തരം നേടുക',
+    recentQueries: 'സമീപകാല ചോദ്യങ്ങൾ',
+    onlineBadge: '🌐 ഓൺലൈൻ',
+    offlineBadge: '📦 ഓഫ്ലൈൻ',
+    noQueriesYet: 'ഇതിനുവരെ ചോദ്യങ്ങളില്ല',
+    startByAsking: 'മുകളിൽ നിങ്ങളുടെ ആദ്യ കാർഷിക ചോദ്യം ചോദിച്ച് തുടങ്ങുക',
+
+    // Activities Page
+    pageTitleActivities: 'കൃഷി പ്രവർത്തനങ്ങൾ',
+    activityLog: 'പ്രവർത്തനങ്ങളുടെ രേഖ',
+    sync: 'സിങ്ക്',
+    syncing: 'സിങ്ക് ചെയ്യുന്നു...',
+    synced: 'സിങ്ക് ചെയ്തു',
+    local: 'ലോകൽ',
+    pendingSync: '{count} പ്രവർത്തനങ്ങൾ സിങ്കിനായി കാത്തിരിക്കുന്നു',
+    offlineWillSync: 'ഓഫ്‌ലൈൻ — ഓൺലൈൻ ആയാൽ സിങ്ക് ചെയ്യും',
+    online: 'ഓൺലൈൻ',
+    offline: 'ഓഫ്‌ലൈൻ',
+    noActivitiesYet: 'ഇതിനുവരെ പ്രവർത്തനങ്ങളില്ല',
+    startLogging: 'നിങ്ങളുടെ പുരോഗതി ട്രാക്ക് ചെയ്യാൻ പ്രവർത്തനങ്ങൾ രേഖപ്പെടുത്താൻ തുടങ്ങുക',
+    addFirstActivity: 'ആദ്യ പ്രവർത്തനം ചേർക്കുക',
+
+    // Home - Crop Disease Detection section
+    cropDiseaseDetection: 'വിളരോഗം കണ്ടെത്തൽ',
+    comingSoon: 'ഉടൻ വരുന്നു',
+    detectDiseasesSubtitle: 'ഒരു ഫോട്ടോ ക്ലിക്കിലൂടെ തന്നെ രോഗങ്ങൾ കണ്ടെത്തുക',
+    snapPhotoLine: 'നിങ്ങളുടെ വിളയുടെ ചിത്രം എടുത്താൽ AI ഉപയോഗിച്ച് ഉടൻ രോഗങ്ങൾ കണ്ടെത്താം.',
+    earlyDetectionLine: 'ആദ്യഘട്ടത്തിൽ കണ്ടെത്തുന്നത് വേഗത്തിൽ നടപടി എടുക്കാനും വിള സംരക്ഷിക്കാനും സഹായിക്കും.',
+    comingSoonShort: 'ഉടൻ വരുന്നു!'
   }
 };
 

@@ -13,8 +13,10 @@ import { QueryResponse as BaseQueryResponse } from '@/types/farmer';
 type QueryResponse = BaseQueryResponse & { synced?: boolean };
 import { toast } from '@/hooks/use-toast';
 import axios from 'axios';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export default function Query() {
+  const { t } = useLanguage();
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [queryHistory, setQueryHistory] = useLocalStorage<QueryResponse[]>('queryHistory', []);
@@ -30,10 +32,10 @@ export default function Query() {
       setQueryHistory(prev => prev.map(q => 
         q.source === 'offline' ? { ...q, synced: true } : q
       ));
-      toast({ title: 'Sync Complete', description: `${unsynced.length} queries synced`, variant: 'default' });
+      toast({ title: t('sync'), description: `${unsynced.length} ${t('recentQueries').toLowerCase()} synced`, variant: 'default' });
     } catch (err) {
       console.error(err);
-      toast({ title: 'Sync Failed', description: 'Will retry later.', variant: 'destructive' });
+      toast({ title: t('sync'), description: t('offlineWillSync'), variant: 'destructive' });
     }
   }, [queryHistory, setQueryHistory]);
 
@@ -48,7 +50,7 @@ export default function Query() {
     e.preventDefault();
 
     if (!query.trim()) {
-      toast({ title: "Empty Query", description: "Please enter your agricultural question", variant: "destructive" });
+      toast({ title: t('askYourQuestion'), description: t('startByAsking'), variant: "destructive" });
       return;
     }
 
@@ -66,13 +68,9 @@ export default function Query() {
       setQueryHistory(prev => [newResponse, ...prev.slice(0, 9)]);
       setQuery('');
 
-      toast({
-        title: "Query Processed",
-        description: `Response generated ${isOnline ? 'online' : 'offline (local KB)'}`,
-        variant: "default"
-      });
+      toast({ title: t('getAnswer'), description: isOnline ? t('enhancedOnline') : t('offlineMode'), variant: "default" });
     } catch (error) {
-      toast({ title: "Error", description: "Failed to process your query. Please try again.", variant: "destructive" });
+      toast({ title: "Error", description: t('startByAsking'), variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -88,24 +86,24 @@ export default function Query() {
   const handleSendSMS = async (q: string) => {
     try {
       await axios.post('/api/send-sms', { message: q });
-      toast({ title: 'SMS Sent', description: 'Your query was sent via SMS gateway', variant: 'default' });
+      toast({ title: 'SMS', description: 'SMS sent', variant: 'default' });
     } catch {
-      toast({ title: 'SMS Failed', description: 'Unable to send SMS', variant: 'destructive' });
+      toast({ title: 'SMS', description: 'Unable to send SMS', variant: 'destructive' });
     }
   };
 
   return (
-    <Layout title="Ask Agricultural Query">
+    <Layout title={t('askQuery')}>
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Query Form */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
-              Ask Your Question
+              {t('askYourQuestion')}
               <span className={`text-xs px-2 py-1 rounded-full ${
                 isOnline ? 'bg-success/10 text-success' : 'bg-warning/10 text-warning'
               }`}>
-                {isOnline ? 'Enhanced Online' : 'Offline Mode'}
+                {isOnline ? t('enhancedOnline') : t('offlineMode')}
               </span>
             </CardTitle>
           </CardHeader>
@@ -114,7 +112,7 @@ export default function Query() {
               <Textarea
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Type your question... (e.g., Why are my paddy leaves yellow?)"
+                placeholder={t('textareaPlaceholder')}
                 className="min-h-[100px] resize-none"
                 disabled={loading}
               />
@@ -122,20 +120,20 @@ export default function Query() {
                 <Button type="submit" className="flex-1" disabled={loading || !query.trim()}>
                   {loading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('processing')}
                     </>
                   ) : (
                     <>
-                      <Send className="mr-2 h-4 w-4" /> Get Answer
+                      <Send className="mr-2 h-4 w-4" /> {t('getAnswer')}
                     </>
                   )}
                 </Button>
                 {/* Voice Input Placeholder */}
-                <Button type="button" variant="outline" onClick={() => toast({ title: 'Voice Input', description: 'Whisper API integration coming soon.' })}>
+                <Button type="button" variant="outline" onClick={() => toast({ title: 'Voice', description: 'Coming soon.' })}>
                   <Mic className="h-4 w-4" />
                 </Button>
                 {/* Image Upload Placeholder */}
-                <Button type="button" variant="outline" onClick={() => toast({ title: 'Image Upload', description: 'Crop image upload coming soon.' })}>
+                <Button type="button" variant="outline" onClick={() => toast({ title: 'Image', description: 'Coming soon.' })}>
                   <ImageIcon className="h-4 w-4" />
                 </Button>
                 {/* SMS Fallback */}
@@ -152,7 +150,7 @@ export default function Query() {
         {/* Query History */}
         {queryHistory.length > 0 ? (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-foreground">Recent Queries</h3>
+            <h3 className="text-lg font-semibold text-foreground">{t('recentQueries')}</h3>
             {queryHistory.map((item) => (
               <Card key={item.id} className="border-l-4 border-l-accent">
                 <CardContent className="pt-4">
@@ -163,7 +161,7 @@ export default function Query() {
                         <span className={`flex items-center gap-1 text-xs px-2 py-1 rounded-full ${
                           item.source === 'online' ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground'
                         }`}>
-                          {item.source === 'online' ? '🌐 Online' : '📦 Offline'}
+                          {item.source === 'online' ? t('onlineBadge') : t('offlineBadge')}
                         </span>
                       </div>
                     </div>
@@ -187,8 +185,8 @@ export default function Query() {
         ) : (
           <Card className="text-center py-8">
             <CardContent>
-              <p className="text-muted-foreground">No queries yet</p>
-              <p className="text-sm text-muted-foreground">Start by asking your first agricultural question above</p>
+              <p className="text-muted-foreground">{t('noQueriesYet')}</p>
+              <p className="text-sm text-muted-foreground">{t('startByAsking')}</p>
             </CardContent>
           </Card>
         )}
