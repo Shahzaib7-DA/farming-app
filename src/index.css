@@ -1,3 +1,12 @@
+@layer utilities {
+  .animate-moving-line-rtl {
+    animation: moving-line-rtl 16s linear forwards;
+  }
+  @keyframes moving-line-rtl {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

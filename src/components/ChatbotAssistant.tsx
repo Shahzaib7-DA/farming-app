@@ -4,48 +4,67 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FiMessageCircle, FiX, FiSend } from "react-icons/fi";
 import { VoiceButton } from "./VoiceButton";
 import localAnswers from "../data/localDB.json";
-
-const initialMessages = [
-  {
-    sender: "assistant",
-    text: "👋 Hi, I am your Assistant. I’m here to help you with your farm queries.",
-  },
-];
-
-function getMockAnswer(userMsg: string) {
-  // Pick a random response from faqs in localDB.json
-  const faqs = Array.isArray(localAnswers.faqs) ? localAnswers.faqs : [];
-  if (faqs.length > 0) {
-    const idx = Math.floor(Math.random() * faqs.length);
-    return faqs[idx].response;
-  }
-  return "Sorry, I don't have an answer for that yet!";
-}
-
-
 export default function ChatbotAssistant() {
+  type ChatMessage = {
+    sender: string;
+    text: string;
+    meta?: { summaryKey?: string };
+  };
+
+  const initialMessages: ChatMessage[] = [
+    {
+      sender: "assistant",
+      text: "👋 Hi, I am your Assistant. I’m here to help you with your farm queries.",
+    },
+  ];
+
+  function getMockAnswer(userMsg: string) {
+    const faqs = Array.isArray(localAnswers.faqs) ? localAnswers.faqs : [];
+    if (faqs.length > 0) {
+      const idx = Math.floor(Math.random() * faqs.length);
+      return faqs[idx].response;
+    }
+    return "Sorry, I don't have an answer for that yet!";
+  }
+
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState(initialMessages);
+  const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const offlineVoicePlayed = useRef({ en: false, ml: false });
+  const summarySpokenRef = useRef<{ [key: string]: boolean }>({});
 
   // Auto-reply when going offline
   useNetworkStatusEffect((online) => {
     if (!online) {
-      const offlineMsg = "You are offline. You can send a query through SMS or wait till the network resumes. Thank you.";
+      const offlineMsgEn = "You are offline. You can send a query through SMS or wait till the network resumes. Thank you.";
+      const offlineMsgMl = "നിങ്ങൾ ഓഫ്‌ലൈനിലാണ്. നിങ്ങൾക്ക് SMS മുഖേന ചോദ്യം അയയ്ക്കാനോ നെറ്റ്‌വർക്ക് പുനഃസ്ഥാപിക്കുമ്പോൾ കാത്തിരിക്കാനോ കഴിയും. നന്ദി.";
       setMessages((msgs) => [
         ...msgs,
-        { sender: "assistant", text: offlineMsg },
+        { sender: "assistant", text: offlineMsgEn },
+        { sender: "assistant", text: offlineMsgMl },
       ]);
-      // Voice response
+      // Voice response: only once per language
       if ('speechSynthesis' in window) {
-        const utter = new window.SpeechSynthesisUtterance(offlineMsg);
-        utter.lang = 'en-IN';
-        window.speechSynthesis.speak(utter);
+        if (!offlineVoicePlayed.current.en) {
+          const utterEn = new window.SpeechSynthesisUtterance(offlineMsgEn);
+          utterEn.lang = 'en-IN';
+          window.speechSynthesis.speak(utterEn);
+          offlineVoicePlayed.current.en = true;
+          utterEn.onend = () => {
+            if (!offlineVoicePlayed.current.ml) {
+              const utterMl = new window.SpeechSynthesisUtterance(offlineMsgMl);
+              utterMl.lang = 'ml-IN';
+              window.speechSynthesis.speak(utterMl);
+              offlineVoicePlayed.current.ml = true;
+            }
+          };
+        }
       }
     }
   });
+
 
   useEffect(() => {
     if (open && messagesEndRef.current) {
@@ -53,7 +72,7 @@ export default function ChatbotAssistant() {
     }
   }, [messages, open]);
 
-  const handleSend = () => {
+  function handleSend() {
     if (!input.trim()) return;
     const userMsg = input;
     setMessages((msgs) => [
@@ -69,25 +88,46 @@ export default function ChatbotAssistant() {
       ]);
       setTyping(false);
     }, 1200);
-  };
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
-      {/* Floating Button */}
+      {/* Floating Button with Noticeable Prompt */}
       <AnimatePresence>
         {!open && (
-          <motion.button
-            key="chat-fab"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
+          <motion.div
+            key="chat-fab-wrap"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 40 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
-            className="bg-gradient-to-br from-green-500 to-blue-500 text-white rounded-full shadow-xl w-14 h-14 flex items-center justify-center text-3xl hover:scale-110 focus:outline-none"
-            aria-label="Open chat assistant"
-            onClick={() => setOpen(true)}
+            className="flex flex-col items-end gap-2"
           >
-            <FiMessageCircle />
-          </motion.button>
+            {/* Speech bubble */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="mb-1 px-4 py-2 rounded-2xl rounded-br-none bg-gradient-to-br from-blue-500/90 to-green-500/90 text-white font-semibold shadow-lg text-base md:text-lg border border-white/20 dark:border-white/10 animate-bounce"
+              style={{ boxShadow: '0 4px 24px 0 rgba(34,197,94,0.15)' }}
+            >
+              <span className="drop-shadow">Need help? <span className="font-bold">Ask!</span></span>
+            </motion.div>
+            {/* Pulsing button */}
+            <motion.button
+              key="chat-fab"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              className="relative bg-gradient-to-br from-green-500 to-blue-500 text-white rounded-full shadow-2xl w-16 h-16 flex items-center justify-center text-4xl hover:scale-110 focus:outline-none border-4 border-white/40 dark:border-white/10"
+              aria-label="Open chat assistant"
+              onClick={() => setOpen(true)}
+            >
+              <span className="absolute inline-flex h-full w-full rounded-full bg-green-400/40 dark:bg-green-600/30 opacity-75 animate-ping"></span>
+              <FiMessageCircle className="relative z-10" />
+            </motion.button>
+          </motion.div>
         )}
       </AnimatePresence>
       {/* Chat Window */}

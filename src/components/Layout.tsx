@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Navigation } from './Navigation';
 import { StatusIndicator } from './StatusIndicator';
+import { LoginIconButton } from './LoginIconButton';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { DarkModeSwitch } from './DarkModeSwitch';
 import { useLanguage } from '@/hooks/useLanguage';
@@ -27,19 +28,18 @@ export function Layout({ children, title }: LayoutProps) {
                 {title && <p className="text-sm text-muted-foreground">{title}</p>}
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 sm:gap-3">
               <LanguageSwitcher />
               <DarkModeSwitch />
               <StatusIndicator />
+              <LoginIconButton />
             </div>
           </div>
         </div>
       </header>
-      
       <main className="flex-1 container mx-auto px-4 py-6">
         {children}
       </main>
-      
       <Navigation />
     </div>
   );

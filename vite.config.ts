@@ -9,7 +9,8 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  // Temporarily disable lovable-tagger to debug dev server crash
+  plugins: [react() /*, mode === "development" && componentTagger()*/].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

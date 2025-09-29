@@ -21,7 +21,7 @@ const slides = [
     bg: "url('/public/slide2.jpg')",
     gradient: "bg-gradient-to-br from-sky-500 to-indigo-600",
     heading: "Ask Farm Queries Instantly",
-    text: "Connect with experts and get answers to your crop, pest, and market questions in seconds.",
+  text: "Have a question about your crops, pests, or the market? Just ask the Farmer Assistant—your smart AI helper is always ready to listen and guide you instantly! Tap below to start a conversation.",
     cta1: "Ask Now",
     cta2: "Learn More",
     cta1Link: "/query",

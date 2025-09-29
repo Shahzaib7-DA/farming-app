@@ -9,19 +9,17 @@ export function LoginIconButton() {
   if (farmerProfile && farmerProfile.name) {
     const firstLetter = farmerProfile.name.charAt(0).toUpperCase();
     return (
-      <div className="absolute top-4 right-4 z-20">
-        <div className="flex items-center gap-2 bg-white/80 border border-green-300 rounded-full px-3 py-2 shadow text-green-700 font-semibold select-none">
-          <div className="w-8 h-8 flex items-center justify-center bg-green-600 text-white rounded-full text-lg font-bold">
-            {firstLetter}
-          </div>
-          <span className="hidden sm:inline">{farmerProfile.name.split(' ')[0]}</span>
+      <div className="flex items-center gap-2 bg-white/80 border border-green-300 rounded-full px-3 py-2 shadow text-green-700 font-semibold select-none">
+        <div className="w-8 h-8 flex items-center justify-center bg-green-600 text-white rounded-full text-lg font-bold">
+          {firstLetter}
         </div>
+        <span className="hidden sm:inline">{farmerProfile.name.split(' ')[0]}</span>
       </div>
     );
   }
 
   return (
-    <Link to="/login" className="absolute top-4 right-4 z-20">
+    <Link to="/login">
       <button
         className="flex items-center gap-2 px-3 py-2 bg-white/80 hover:bg-green-100 border border-green-300 rounded-full shadow transition text-green-700 font-semibold"
         title="Login / Signup"
