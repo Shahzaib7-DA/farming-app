@@ -39,7 +39,7 @@ const Login = () => {
       registeredAt: new Date(),
     };
     localStorage.setItem("farmerProfile", JSON.stringify(farmerProfile));
-    navigate("/", { replace: true });
+    navigate("/home", { replace: true });
   };
 
   return (

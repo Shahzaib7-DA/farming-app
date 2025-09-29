@@ -8,7 +8,7 @@ export function Navigation() {
   const { t } = useLanguage();
 
   const navItems = [
-    { href: '/', icon: Sprout, label: t('home') },
+    { href: '/home', icon: Sprout, label: t('home') },
     { href: '/profile', icon: User, label: t('profile') },
     { href: '/query', icon: MessageCircle, label: t('query') },
     { href: '/activities', icon: FileText, label: t('activities') },

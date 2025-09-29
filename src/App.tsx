@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import Home from "./pages/Home";
+import Index from "./pages/Index";
 import Profile from "./pages/Profile";
 import Query from "./pages/Query";
 import Activities from "./pages/Activities";
@@ -24,17 +25,21 @@ function AppRoutes() {
   const location = useLocation();
   useEffect(() => {
     const farmerProfile = localStorage.getItem("farmerProfile");
-    if (!farmerProfile && location.pathname !== "/login") {
-      navigate("/login", { replace: true });
+    if (!farmerProfile) {
+      // Allow welcome page at "/" without redirecting to login
+      if (location.pathname !== "/" && location.pathname !== "/login") {
+        navigate("/", { replace: true });
+      }
     } else if (farmerProfile && location.pathname === "/login") {
-      navigate("/", { replace: true });
+      navigate("/home", { replace: true });
     }
   }, [location.pathname, navigate]);
 
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Index />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/query" element={<Query />} />
       <Route path="/activities" element={<Activities />} />
